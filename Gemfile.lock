@@ -148,10 +148,10 @@ GEM
     cucumber-wire (0.0.1)
     database_cleaner (1.3.0)
     device_detector (1.0.1)
-    devise (4.7.1)
+    devise (4.6.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
+      railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
@@ -761,7 +761,7 @@ DEPENDENCIES
   cocoon
   cucumber-rails (~> 1.6)
   database_cleaner (~> 1.3.0)
-  devise (= 4.7.1)
+  devise (= 4.6.1)
   dotenv-rails
   factory_bot_rails (~> 4.10)
   faker (~> 1.9)
