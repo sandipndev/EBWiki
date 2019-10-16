@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   before_action :store_user_location!, if: :storable_location?
-
+  before_action :set_cache_headers 
   rescue_from ActionController::InvalidAuthenticityToken, with: :clear_session_and_log
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -50,6 +50,13 @@ class ApplicationController < ActionController::Base
     redirect_to '/'
   end
 
+
+  def set_cache_headers  
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"  
+    response.headers["Pragma"] = "no-cache"  
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"  
+  end  
+  
   def state_objects
     @state_objects ||= SortCollectionOrdinally.call(collection: State.all)
   end
