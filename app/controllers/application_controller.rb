@@ -3,10 +3,11 @@
 # application controller
 class ApplicationController < ActionController::Base
   include Pundit
+  include SessionsHelper
 
   before_action :store_user_location!, if: :storable_location?
 
-  rescue_from ActionController::InvalidAuthenticityToken, with: :log_invalid_token_attempt
+  rescue_from ActionController::InvalidAuthenticityToken, with: :clear_session_and_log
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   if Rails.env.staging?
@@ -39,9 +40,14 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def log_invalid_token_attempt(exception)
+  def clear_session_and_log(exception)
     Rails.logger.error exception
     Rollbar.warning exception
+    cookies.delete(:_eb_wiki_session)
+    cookies.delete(:ahoy_visit)
+    session.delete(:ahoy_visitor)
+    @current_user = nil
+    flash[:error] = 'Oops, you got logged out. If this keeps happening please contact us. Thank you!'
     redirect_to '/'
   end
 
