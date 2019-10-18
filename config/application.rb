@@ -28,6 +28,9 @@ module EBWiki
 
     config.autoload_paths << Rails.root.join('lib')
 
+    # No browser caching
+    config.action_dispatch.default_headers.merge!('Cache-Control' => 'no-store, no-cache')
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
 
     config.active_record.raise_in_transactional_callbacks = true
