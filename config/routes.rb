@@ -28,7 +28,10 @@ Rails.application.routes.draw do
   resources :agencies
   resources :organizations
 
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { 
+    registrations: 'users/registrations',
+    sesssions: 'users/sessions'
+  }
   resources :users, only: %i[show edit]
   mount RailsAdmin::Engine, at: '/admin', as: 'rails_admin'
 
