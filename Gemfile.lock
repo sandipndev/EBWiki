@@ -5,6 +5,12 @@ GIT
     acts_as_follower (0.2.1)
       activerecord (>= 4.0)
 
+GIT
+  remote: https://github.com/jasnow/Google-Maps-for-Rails.git
+  revision: f92580b9f6e98f751e8451c3501c34f8708ec476
+  specs:
+    gmaps4rails (2.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -806,6 +812,7 @@ DEPENDENCIES
   galerts (~> 1.1)
   geocoder
   gibbon
+  gmaps4rails!
   groupdate (~> 4.0)
   guard-rspec (~> 4.7)
   hightop (~> 0.2)

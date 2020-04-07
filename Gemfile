@@ -175,3 +175,5 @@ gem 'recaptcha'
 group :production do
   gem 'cloudflare-rails', '~> 0.6'
 end
+
+gem 'gmaps4rails', git: 'https://github.com/jasnow/Google-Maps-for-Rails.git'
