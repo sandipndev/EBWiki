@@ -25,5 +25,4 @@
 //= require_tree .
 //= require ckeditor/init
 //= require fullcalendar
-//= require gmaps/google
 $('#calendar').fullCalendar({});

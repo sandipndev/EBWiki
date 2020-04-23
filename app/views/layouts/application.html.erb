@@ -23,8 +23,6 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application',  'data-turbolinks-track' => true %>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/markerclustererplus/2.1.4/markerclusterer.min.js"></script>
     <%= csrf_meta_tags %>
      <!-- Google Analytics -->
     <script>
@@ -36,25 +34,28 @@
       ga('create', 'UA-32848364-7', 'auto');
       ga('send', 'pageview');
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markerclustererplus/2.1.4/markerclusterer.min.js"></script>
     <script>
-      handler = Gmaps.build('Google');
-      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-        markers = handler.addMarkers([
-          {
-            "lat": 0,
-            "lng": 0,
-            "picture": {
-              "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
-              "width":  32,
-              "height": 32
-            },
-            "infowindow": "hello!"
-          }
-        ]);
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
+    function initMap() {
+      var originalMapCenter = new google.maps.LatLng(-25.363882, 131.044922);
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: originalMapCenter
       });
+
+      var infowindow = new google.maps.InfoWindow({
+        content: 'Change the zoom level',
+        position: originalMapCenter
+      });
+      infowindow.open(map);
+
+      map.addListener('zoom_changed', function() {
+        infowindow.setContent('Zoom: ' + map.getZoom());
+      });
+    }
     </script>
+  
     <%= render 'application/favicon' %>
   </head>
   <body>
