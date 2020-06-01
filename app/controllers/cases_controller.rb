@@ -40,7 +40,6 @@ class CasesController < ApplicationController
     # TODO: Create a scope to send only to users who have chosen to receive email updates
     if @this_case.save
       flash[:success] = 'Case was created!'
-      flash[:undo] = @this_case.versions
       redirect_to @this_case
     else
       set_instance_vars
@@ -79,7 +78,6 @@ class CasesController < ApplicationController
       @this_case = Case.friendly.find(params[:id])
       @this_case.destroy
       flash[:success] = 'Case was removed!'
-      flash[:undo] = @this_case.versions
       CaseMailer.send_deletion_email(users: @this_case.followers,
                                      this_case: @this_case).deliver_now
     rescue ActiveRecord::RecordNotFound
@@ -104,7 +102,6 @@ class CasesController < ApplicationController
         @case_version.item.destroy
       end
       flash[:success] = 'Undid that!'
-      flash[:undo] = @this_case.versions
     rescue StandardError
       flash[:alert] = 'Failed undoing the action...'
     ensure
@@ -113,10 +110,6 @@ class CasesController < ApplicationController
   end
 
   def after_sign_up_path_for(resource)
-    stored_location_for(resource) || super
-  end
-
-  def after_sign_in_path_for(resource)
     stored_location_for(resource) || super
   end
 
