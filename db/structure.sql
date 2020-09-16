@@ -30,7 +30,8 @@ CREATE TYPE public.cause_of_death AS ENUM (
     'response to medical emergency',
     'suicide',
     'chemical_agents_or_weapons',
-    'drowning'
+    'drowning',
+    'stabbing'
 );
 
 
@@ -1978,6 +1979,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190824175709'),
 ('20190825000337'),
 ('20191114063555'),
-('20200812015951');
+('20200812015951'),
+('20200901014746');
 
 
